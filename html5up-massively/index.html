@@ -137,6 +137,7 @@
 					<footer id="footer">
 						<section>
 							<form method="post" action="https://formsubmit.co/xiao@saddlepointpro.com">
+								<input type="hidden" name="_captcha" value="false">
 								<div class="fields">
 									<div class="field">
 										<label for="name">Name</label>
@@ -198,34 +199,55 @@
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
 		    <script>
-				const form = document.querySelector("form");
+				const form = document.getElementById("contactForm");
+				const successMessage = document.getElementById("successMessage");
 				form.addEventListener("submit", function(e) {
-  // Get the input values
+					e.preventDefault(); // Prevent default form submission
+
+  // Get values
 					const name = document.getElementById("name").value.trim();
 					const email = document.getElementById("email").value.trim();
 					const message = document.getElementById("message").value.trim();
 
-  // Check if any field is empty
+  // Validate
 					if (!name || !email || !message) {
-						e.preventDefault(); // stop form submission
 						alert("Please fill in all fields before submitting.");
 						return;
 					}
-
-  // Optional: simple email format check
 					const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
 					if (!emailPattern.test(email)) {
-						e.preventDefault();
 						alert("Please enter a valid email address.");
 						return;
 					}
 
-  // If all checks pass, show success message
-					alert("Thank you! Your message has been sent.");
+  // Prepare form data for Formsubmit
+					const formData = new FormData(form);
+
+  // Send via fetch (AJAX)
+					fetch(form.action, {
+						method: form.method,
+						body: formData,
+						headers: {
+							'Accept': 'application/json'
+						}
+					})
+						.then(response => {
+							if (response.ok) {
+								successMessage.style.display = "block"; // Show success
+								form.reset(); // Clear form fields
+							} else {
+								alert("Oops! There was a problem sending your message.");
+							}
+						})
+						.catch(error => {
+							alert("Oops! There was a problem sending your message.");
+							console.error(error);
+						});
 				});
 			</script>
 	</body>
 </html>
+
 
 
 
