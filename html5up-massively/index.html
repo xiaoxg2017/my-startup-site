@@ -11,8 +11,28 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<!-- add a floating logo -->
+		<title>Floating Logo Example</title>
+		<style>
+			.floating-logo {
+            position: fixed;   /* Stays in top-left corner while scrolling */
+            top: 20px;         /* Distance from the top */
+            left: 20px;        /* Distance from the left */
+            width: 100px;      /* Adjust logo size */
+            height: auto;      /* Keep aspect ratio */
+            z-index: 1000;     /* Above other elements */
+        }
+		</style>
 	</head>
 	<body class="is-preload">
+		    <!-- Floating Logo -->
+    <img src="images/TransparentLogo.png" alt="Company Logo" class="floating-logo">
+
+    <!-- Example page content -->
+    <div style="margin-top:150px;">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Scroll down to see the logo stay in place.</p>
+        <p style="margin-top:1000px;">End of content.</p>
+    </div>
 
 		<!-- Wrapper -->
 			<div id="wrapper" class="fade-in">
@@ -227,6 +247,7 @@
 
 	</body>
 </html>
+
 
 
 
