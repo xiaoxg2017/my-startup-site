@@ -200,46 +200,34 @@
 			<script src="assets/js/main.js"></script>
 <script>
 const form = document.getElementById("contactForm");
-const successMessage = document.getElementById("successMessage");
 
 form.addEventListener("submit", function(e) {
-  e.preventDefault(); // prevent page reload
+  e.preventDefault(); // Stop default form submission
 
-  // Get field values
+  // Simple validation
   const name = document.getElementById("name").value.trim();
   const email = document.getElementById("email").value.trim();
   const message = document.getElementById("message").value.trim();
 
-  // Validation
   if (!name || !email || !message) {
     alert("Please fill in all fields before submitting.");
-    return;
-  }
-
-  const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
-  if (!emailPattern.test(email)) {
-    alert("Please enter a valid email address.");
     return;
   }
 
   // Prepare form data
   const formData = new FormData(form);
 
-  // Send via AJAX
+  // Send via AJAX to Formsubmit
   fetch(form.action, {
-    method: 'POST',
+    method: "POST",
     body: formData,
-    headers: { 'Accept': 'application/json' }
+    headers: { "Accept": "application/json" }
   })
-  .then(response => {
-    if (response.ok) {
-      successMessage.style.display = "block"; // show message
-      form.reset(); // clear fields
-
-      // Optional: fade out after 5 seconds
-      setTimeout(() => {
-        successMessage.style.display = "none";
-      }, 5000);
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      alert("Thank you! Your message has been sent."); // Simple pop-up
+      form.reset(); // Clear form
     } else {
       alert("Oops! There was a problem sending your message.");
     }
@@ -249,9 +237,11 @@ form.addEventListener("submit", function(e) {
     console.error(error);
   });
 });
-			</script>
+</script>
+
 	</body>
 </html>
+
 
 
 
