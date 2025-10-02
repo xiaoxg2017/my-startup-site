@@ -136,7 +136,7 @@
 				<!-- Footer -->
 					<footer id="footer">
 						<section>
-							<form method="post" action="https://formsubmit.co/ajax/xiao@saddlepointpro.com">
+							<form method="post">
 								<input type="hidden" name="_captcha" value="false">
 								<div class="fields">
 									<div class="field">
@@ -202,38 +202,24 @@
 const form = document.getElementById("contactForm");
 
 form.addEventListener("submit", function(e) {
-  e.preventDefault(); // Stop default form submission
+  e.preventDefault(); // stop redirect
 
-  // Simple validation
-  const name = document.getElementById("name").value.trim();
-  const email = document.getElementById("email").value.trim();
-  const message = document.getElementById("message").value.trim();
-
-  if (!name || !email || !message) {
-    alert("Please fill in all fields before submitting.");
-    return;
-  }
-
-  // Prepare form data
-  const formData = new FormData(form);
-
-  // Send via AJAX to Formsubmit
-  fetch(form.action, {
+  fetch("https://formsubmit.co/ajax/xiao@saddlepointpro.com", {
     method: "POST",
-    body: formData,
+    body: new FormData(form),
     headers: { "Accept": "application/json" }
   })
   .then(response => response.json())
   .then(data => {
     if (data.success) {
-      alert("Thank you! Your message has been sent."); // Simple pop-up
-      form.reset(); // Clear form
+      alert("✅ Thank you! Your message has been sent.");
+      form.reset();
     } else {
-      alert("Oops! There was a problem sending your message.");
+      alert("⚠️ Oops! Something went wrong.");
     }
   })
   .catch(error => {
-    alert("Oops! There was a problem sending your message.");
+    alert("⚠️ Error sending message.");
     console.error(error);
   });
 });
@@ -241,6 +227,7 @@ form.addEventListener("submit", function(e) {
 
 	</body>
 </html>
+
 
 
 
