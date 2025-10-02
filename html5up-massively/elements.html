@@ -200,16 +200,35 @@
 		    <script>
 				const form = document.querySelector("form");
 				form.addEventListener("submit", function(e) {
-					e.preventDefault(); // Stop the default form submission
-					alert("Thank you! Your message has been sent to Saddle Point Pro.");
-  // Optional: reset the form
-					form.reset();
+  // Get the input values
+					const name = document.getElementById("name").value.trim();
+					const email = document.getElementById("email").value.trim();
+					const message = document.getElementById("message").value.trim();
+
+  // Check if any field is empty
+					if (!name || !email || !message) {
+						e.preventDefault(); // stop form submission
+						alert("Please fill in all fields before submitting.");
+						return;
+					}
+
+  // Optional: simple email format check
+					const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+					if (!emailPattern.test(email)) {
+						e.preventDefault();
+						alert("Please enter a valid email address.");
+						return;
+					}
+
+  // If all checks pass, show success message
+					alert("Thank you! Your message has been sent.");
 				});
 			</script>
 
 	</body>
 
 </html>
+
 
 
 
