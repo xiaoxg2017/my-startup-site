@@ -137,7 +137,6 @@
 					<footer id="footer">
 						<section>
 							<form method="post" action="https://formsubmit.co/ajax/xiao@saddlepointpro.com>
-								<input type="hidden" name="_captcha" value="false">
 								<div class="fields">
 									<div class="field">
 										<label for="name">Name</label>
@@ -198,23 +197,37 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
-<script>
-const form = document.querySelector("form");
-form.addEventListener("submit", function(e) {
-  e.preventDefault();
+		    <script>
+				const form = document.querySelector("form");
+				form.addEventListener("submit", function(e) {
+  // Get the input values
+					const name = document.getElementById("name").value.trim();
+					const email = document.getElementById("email").value.trim();
+					const message = document.getElementById("message").value.trim();
 
-  if (form.checkValidity()) {
-    alert("Thank you! Your message has been sent.");
-    form.reset();
-  } else {
-    // Trigger browser’s built-in error messages
-    form.reportValidity();
-  }
-});
-</script>
+  // Check if any field is empty
+					if (!name || !email || !message) {
+						e.preventDefault(); // stop form submission
+						alert("Please fill in all fields before submitting.");
+						return;
+					}
+
+  // Optional: simple email format check
+					const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+					if (!emailPattern.test(email)) {
+						e.preventDefault();
+						alert("Please enter a valid email address.");
+						return;
+					}
+
+  // If all checks pass, show success message
+					alert("Thank you! Your message has been sent.");
+				});
+			</script>
 
 	</body>
 </html>
+
 
 
 
