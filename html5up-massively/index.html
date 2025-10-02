@@ -136,7 +136,7 @@
 				<!-- Footer -->
 					<footer id="footer">
 						<section>
-							<form method="post">
+							<form method="post" action="https://formsubmit.co/ajax/xiao@saddlepointpro.com>
 								<input type="hidden" name="_captcha" value="false">
 								<div class="fields">
 									<div class="field">
@@ -199,34 +199,23 @@
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
 <script>
-const form = document.getElementById("contactForm");
-
+const form = document.querySelector("form");
 form.addEventListener("submit", function(e) {
-  e.preventDefault(); // stop redirect
+  e.preventDefault();
 
-  fetch("https://formsubmit.co/ajax/xiao@saddlepointpro.com", {
-    method: "POST",
-    body: new FormData(form),
-    headers: { "Accept": "application/json" }
-  })
-  .then(response => response.json())
-  .then(data => {
-    if (data.success) {
-      alert("✅ Thank you! Your message has been sent.");
-      form.reset();
-    } else {
-      alert("⚠️ Oops! Something went wrong.");
-    }
-  })
-  .catch(error => {
-    alert("⚠️ Error sending message.");
-    console.error(error);
-  });
+  if (form.checkValidity()) {
+    alert("Thank you! Your message has been sent.");
+    form.reset();
+  } else {
+    // Trigger browser’s built-in error messages
+    form.reportValidity();
+  }
 });
 </script>
 
 	</body>
 </html>
+
 
 
 
