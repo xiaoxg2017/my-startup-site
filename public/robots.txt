@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://saddlepointpro.com/sitemap.xml
